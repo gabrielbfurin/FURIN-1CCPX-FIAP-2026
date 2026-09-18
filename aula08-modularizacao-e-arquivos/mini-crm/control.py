@@ -1,5 +1,5 @@
 from pathlib import Path
-import json
+import json, csv
 
 DATA_DIR = Path(__file__).resolve().parent / "data"
 DATA_DIR.mkdir(exist_ok=True)
@@ -23,3 +23,36 @@ def create_lead(lead_dict):
     leads = read_leads()
     leads.append(lead_dict)
     DB_PATH.write_text(json.dumps(leads, ensure_ascii=False, indent=2), encoding="utf-8")
+
+# Função que recebe o texto da busca e retorna uma lista com os resultados
+def read_leads_research(query):
+    leads = read_leads() # Lista de dicionarios
+
+    results = [] # Lista com resultado das buscas
+
+    for i, lead in enumerate(leads):
+        txt_lead = f"{lead['Name']} {lead['email']}".lower()
+        # print(txt_lead)
+
+        if query.lower() in txt_lead:
+            results.append((i, lead))
+
+    return results
+
+# Função para exportar leads como CSV
+def export_csv():
+    '''Exporta leads para CSV e RETORNA o caminho do arquivo'''
+    path_csv = DATA_DIR / "leads.csv"
+
+    leads = read_leads()
+
+    try:
+        with path_csv.open("w", newline="", encoding="utf=8") as file_csv:
+            writer = csv.DictReader(file_csv, leads[0].keys())
+            writer.writeheader()
+
+            for row_dict in leads:
+                writer.writerow(row_dict)
+
+    except PermissionError:
+        return None

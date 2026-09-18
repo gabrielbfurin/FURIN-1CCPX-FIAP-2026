@@ -21,9 +21,32 @@ def list_leads():
 
     print(f"## | {"Nome":<10} | E-mail")
     for i, lead in enumerate(leads):
-        print(f"{i:02d} | {lead['nome']:<10} | {lead['email']}")
+        print(f"{i:02d} | {lead['Name']:<10} | {lead['email']}")
 
+def search_leads():
+    query = input("Buscar por: ").strip()
 
+    if not query:
+        print("Consulta vazia")
+        return
+
+    # com a query digitada (busca)... preciso enviar para o control
+    # o control ira comparar a query com os dados do leads.json
+    # e ira retornar os resultados
+
+    leads_found = control.read_leads_research(query)
+
+    print(f"## | {"Nome":<10} | E-mail")
+    for i, lead in leads_found:
+        print(f"{i:02d} | {lead['Name']:<10} | {lead['email']}")
+
+def export_leads():
+    path_csv = control.export_csv()
+
+    if path_csv is None:
+        print("Não foi possivel exportar.")
+    else:
+        print("Exportado para {path_csv}")
 
 def main():
     while True:
