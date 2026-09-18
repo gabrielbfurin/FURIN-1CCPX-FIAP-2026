@@ -6,5 +6,4 @@ def model_lead(nome, email, status):
             "email": email,
             "status": status,
             "created": date.today().isoformat()
-            
         }

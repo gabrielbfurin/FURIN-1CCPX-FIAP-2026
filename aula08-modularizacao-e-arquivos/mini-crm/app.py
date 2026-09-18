@@ -18,13 +18,20 @@ def add_lead():
 
 def list_leads():
     leads = control.read_leads()
-    print(leads)
+
+    print(f"## | {"Nome":<10} | E-mail")
+    for i, lead in enumerate(leads):
+        print(f"{i:02d} | {lead['nome']:<10} | {lead['email']}")
+
+
 
 def main():
     while True:
         print("\nMini CRM de Leads")
         print("[1] Adicionar Lead")
         print("[2] Listar Leads")
+        print("[3] Buscar (nome/email)")
+        print("[4] Exportar para CSV")
         print("[0] Sair do programa")
 
         opt = input("\nEscolha uma opção: ")
@@ -33,6 +40,10 @@ def main():
             add_lead()
         elif opt == "2":
             list_leads()
+        elif opt == "3":
+            search_leads()
+        elif opt == "4":
+            export_leads()
         elif opt == "0":
             print("Até mais...")
             break
