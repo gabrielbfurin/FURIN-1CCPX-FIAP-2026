@@ -2,7 +2,7 @@ from aluno import Aluno
 from disciplina import Disciplina
 
 # Criar/estanciar um aluno
-aluno1 = Aluno("João", "123456", "Ciência da Computaria")
+aluno1 = Aluno("João", "123456", "Ciência da Computaçao")
 
 # Criar/estanciar duas disciplinas
 dsa = Disciplina("Data Structure", "Alvaro")
